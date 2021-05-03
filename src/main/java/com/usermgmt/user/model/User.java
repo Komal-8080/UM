@@ -61,6 +61,12 @@ public @Data class User {
     private UserPermissions WebPage3Permissions;
 
     public User(RegistrationDTO registrationDTO) {
+        this.updateUserDetails(registrationDTO);
+    }
+
+    public User() { }
+
+    public void updateUserDetails(RegistrationDTO registrationDTO) {
         this.firstName = registrationDTO.getFirstName();
         this.middleName = registrationDTO.getMiddleName();
         this.lastName = registrationDTO.getLastName();
@@ -75,6 +81,4 @@ public @Data class User {
         this.confirmPassword = registrationDTO.getConfirmPassword();
         this.userRole = registrationDTO.getUserRole();
     }
-
-    public User() { }
 }

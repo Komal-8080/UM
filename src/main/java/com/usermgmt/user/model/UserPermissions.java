@@ -28,6 +28,10 @@ public @Data class UserPermissions {
     private boolean toRead;
 
     public UserPermissions(PermissionsDTO permissionsDTO) {
+        this.updatePermissions(permissionsDTO);
+    }
+
+    public void updatePermissions(PermissionsDTO permissionsDTO) {
         this.toAdd = permissionsDTO.isToAdd();
         this.toModify = permissionsDTO.isToModify();
         this.toDelete = permissionsDTO.isToDelete();
