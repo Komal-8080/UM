@@ -40,4 +40,6 @@ public interface IUserService {
     UserPermissions setUserInformationPermissions(String token, PermissionsDTO permissionsDTO);
 
     List<UserSummary> getRegistrations(String token, String user);
+
+    void rememberMe(String token);
 }

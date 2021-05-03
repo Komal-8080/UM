@@ -89,6 +89,23 @@ public class UserController {
         return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
     }
 
+    @ApiOperation("API Used to remember Login credentials.This API is used for user login credentials reminder\n"+
+            "User can set remember me to true to save user login credentials to avoid remembering login credentials for each login")
+    @ApiResponses({@ApiResponse(
+            code = 200,
+            message = "User login Remember",
+            response = Response.class
+    ),@ApiResponse(
+            code = 404,
+            message = "Error Setting Login Remenber",
+            response = Response.class
+    )})
+    @PostMapping("/rememberMe")
+    public ResponseEntity<ResponseDTO> rememberMe(@RequestHeader String token) {
+        iUserService.rememberMe(token);
+        ResponseDTO responseDTO = new ResponseDTO("User Login Credentials","Remember Me Set");
+        return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
+    }
 
     @ApiOperation("API Used if User ForgotPassword.This API is used if user forgot password\n"+
             "user has to provide email id on which mail will be sent and user has to click on the provided link in the mail\n"+

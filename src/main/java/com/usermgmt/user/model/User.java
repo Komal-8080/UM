@@ -38,6 +38,7 @@ public @Data class User {
     private String profileImage;
     private LocalDateTime lastLoginDateTime;
     private LocalDateTime loginDateTime;
+    private boolean rememberMe;
     private boolean isVerify;
     private LocalDateTime registrationDate = LocalDateTime.now();
     private boolean status;

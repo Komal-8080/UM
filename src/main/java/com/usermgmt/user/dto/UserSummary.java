@@ -31,6 +31,7 @@ public class UserSummary {
     private LocalDateTime lastLoginDateTime;
     private LocalDateTime loginDateTime;
     private boolean isVerify;
+    private boolean rememberMe;
     private LocalDateTime registrationDate = LocalDateTime.now();
     private UserPermissions DashBoardPermissions;
     private UserPermissions SettingsPermissions;
@@ -58,6 +59,7 @@ public class UserSummary {
         this.lastLoginDateTime = users.getLastLoginDateTime();
         this.loginDateTime = users.getLoginDateTime();
         this.isVerify = users.isVerify();
+        this.rememberMe = users.isRememberMe();
         this.registrationDate = users.getRegistrationDate();
         this.DashBoardPermissions = users.getDashBoardPermissions();
         this.SettingsPermissions = users.getSettingsPermissions();

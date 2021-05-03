@@ -56,7 +56,7 @@ public class UserServiceImpl implements IUserService {
                 String emailId = registrationDTO.getEmailId();
                 String url = emailService.getUrl(id)+"/valid";
                 emailService.sendMail(emailId,"Email Validation","Dear "+registration.getFirstName()+"\n"+"Kindly,Click on the below link to validate email id"+"\n"+url);
-                return userRepository.save(registration);
+                return saveUser;
             }throw new UserException(UserException.ExceptionTypes.PASSWORD_DOES_NOT_MATCH);
         } throw new UserException(UserException.ExceptionTypes.USER_EXISTS);
     }
@@ -94,6 +94,17 @@ public class UserServiceImpl implements IUserService {
         } throw new UserException(UserException.ExceptionTypes.INVALID_USERNAME_OR_PASSWORD);
     }
 
+    @Override
+    public void rememberMe(String token) {
+        UUID id = UUID.fromString(tokenUtil.decodeToken(token));
+        Optional<User> isUserExists = userRepository.findById(id);
+        if (isUserExists.isPresent() && !isUserExists.get().isRememberMe()) {
+            isUserExists.get().setRememberMe(true);
+        }else {
+            isUserExists.get().setRememberMe(false);
+        }userRepository.save(isUserExists.get());
+    }
+    
     @Override
     public String forgotPassword(EmailDTO emailDTO) {
         Optional<User> userEmailId = userRepository.findByEmailId(emailDTO.getEmailId());
@@ -246,4 +257,6 @@ public class UserServiceImpl implements IUserService {
             } throw new UserException(UserException.ExceptionTypes.USER_NOT_FOUND);
         }throw new UserException(UserException.ExceptionTypes.INVAlID_TOKEN);
     }
+
+    
 }
