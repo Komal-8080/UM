@@ -1,4 +1,4 @@
-package com.usermgmt.webpages.controller;
+package com.usermgmt.user.service;
 
 import com.usermgmt.user.model.UserPermissions;
 

@@ -1,10 +1,9 @@
-package com.usermgmt.webpages.controller;
+package com.usermgmt.user.controller;
 
 import com.usermgmt.response.Response;
 import com.usermgmt.response.ResponseDTO;
-import com.usermgmt.user.dto.PermissionsDTO;
 import com.usermgmt.user.model.UserPermissions;
-import com.usermgmt.webpages.service.WebpageServiceImpl;
+import com.usermgmt.user.service.IWebpageService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;

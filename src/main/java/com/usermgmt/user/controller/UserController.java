@@ -69,7 +69,6 @@ public class UserController {
         return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
     }
 
-
     @ApiOperation("API Used to for User Login.This API is used for user login\n"+
                     "if userId and password are valid then user will be given a token for further operations\n"+
                     "on successful login")
@@ -321,7 +320,7 @@ public class UserController {
             response = Response.class
     ), @ApiResponse(
             code = 404,
-            message = "Error getting Notes",
+            message = "Error getting User Registrations",
             response = Response.class
     )})
     @GetMapping("/getRegistrations")

@@ -1,4 +1,4 @@
-package com.usermgmt.webpages.service;
+package com.usermgmt.user.service;
 
 import com.usermgmt.exceptions.UserException;
 import com.usermgmt.user.model.User;
@@ -6,7 +6,7 @@ import com.usermgmt.user.model.UserPermissions;
 import com.usermgmt.user.repository.UserPermissionsRepository;
 import com.usermgmt.user.repository.UserRepository;
 import com.usermgmt.utility.TokenUtil;
-import com.usermgmt.webpages.controller.IWebpageService;
+import com.usermgmt.user.service.IWebpageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

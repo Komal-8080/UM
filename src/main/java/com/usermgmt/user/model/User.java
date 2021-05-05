@@ -36,7 +36,6 @@ public @Data class User {
     private String confirmPassword;
     private String userRole;
     private String profileImage;
-    private LocalDateTime lastLoginDateTime;
     private LocalDateTime loginDateTime;
     private boolean rememberMe;
     private boolean isVerify;
@@ -60,6 +59,9 @@ public @Data class User {
 
     @OneToOne(cascade = CascadeType.ALL)
     private UserPermissions WebPage3Permissions;
+
+    @ElementCollection
+    private List<LocalDateTime> loginHistory;
 
     public User(RegistrationDTO registrationDTO) {
         this.updateUserDetails(registrationDTO);

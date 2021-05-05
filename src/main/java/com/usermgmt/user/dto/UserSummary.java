@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -28,7 +29,6 @@ public class UserSummary {
     private String confirmPassword;
     private String userRole;
     private String profileImage;
-    private LocalDateTime lastLoginDateTime;
     private LocalDateTime loginDateTime;
     private boolean isVerify;
     private boolean rememberMe;
@@ -39,6 +39,7 @@ public class UserSummary {
     private UserPermissions WebPage1Permissions;
     private UserPermissions WebPage2Permissions;
     private UserPermissions WebPage3Permissions;
+    private List<LocalDateTime> loginHistory;
 
     public UserSummary(User users) {
         this.id=users.getId().toString();
@@ -56,7 +57,6 @@ public class UserSummary {
         this.confirmPassword = users.getConfirmPassword();
         this.userRole = users.getUserRole();
         this.profileImage = users.getProfileImage();
-        this.lastLoginDateTime = users.getLastLoginDateTime();
         this.loginDateTime = users.getLoginDateTime();
         this.isVerify = users.isVerify();
         this.rememberMe = users.isRememberMe();
@@ -67,5 +67,6 @@ public class UserSummary {
         this.WebPage1Permissions = users.getWebPage1Permissions();
         this.WebPage2Permissions = users.getWebPage2Permissions();
         this.WebPage3Permissions = users.getWebPage3Permissions();
+        this.loginHistory = users.getLoginHistory();
     }
 }

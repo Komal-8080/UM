@@ -85,8 +85,9 @@ public class UserServiceImpl implements IUserService {
         boolean status = passwordEncoder.matches(password, user.get().getPassword());
         if (status == true) {
             String token = tokenUtil.createToken(user.get().getId());
-            user.get().setLastLoginDateTime(user.get().getLoginDateTime());
             user.get().setLoginDateTime(LocalDateTime.now());
+            user.get().getLoginHistory().add(LocalDateTime.now());
+            userRepository.save(user.get());
             response.setToken(token);
             response.setStatusCode(200);
             response.setStatusMessage(ApplicationConfiguration.getMessageAccessor().getMessage("102"));
