@@ -13,9 +13,9 @@ public interface IUsersListService {
 
     List<UsersListSummary> getUsersList(String token, long usersList);
 
-    User editUserDetails(String token, RegistrationDTO registrationDTO);
+    User editUserDetails(String token, UUID userId, RegistrationDTO registrationDTO);
 
-    void removeUserDetails(String token);
+    void removeUserDetails(String token, UUID userId);
 
     UserPermissions updatePermissions(String token, UUID permissionId, PermissionsDTO permissionsDTO);
 

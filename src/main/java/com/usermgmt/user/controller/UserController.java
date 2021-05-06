@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/user")
@@ -308,6 +309,24 @@ public class UserController {
     public ResponseEntity<ResponseDTO> setWebPage3Permissions(@RequestHeader String token , @RequestBody PermissionsDTO permissionsDTO) {
         UserPermissions response = iUserService.setWebPage3Permissions(token, permissionsDTO);
         ResponseDTO responseDTO = new ResponseDTO("Permissions Set Successfully", response);
+        return new ResponseEntity<ResponseDTO>(responseDTO,HttpStatus.OK);
+    }
+
+    @ApiOperation("API Used for Setting Status.This API is used for Setting User Status\n"+
+            "Admin can to set user status to true to activate and to false to inactivate ")
+    @ApiResponses({@ApiResponse(
+            code = 200,
+            message = "Status Set Successfully",
+            response = Response.class
+    ),@ApiResponse(
+            code = 404,
+            message = "Error setting Status",
+            response = Response.class
+    )})
+    @PutMapping("/setUserStatus/{userId}")
+    public ResponseEntity<ResponseDTO> setUserStatus(@RequestHeader String token , @PathVariable UUID userId) {
+        String response = iUserService.setUserStatus(token,userId);
+        ResponseDTO responseDTO = new ResponseDTO("Status Set Successfully", response);
         return new ResponseEntity<ResponseDTO>(responseDTO,HttpStatus.OK);
     }
 

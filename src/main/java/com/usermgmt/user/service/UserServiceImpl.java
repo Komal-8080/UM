@@ -105,7 +105,25 @@ public class UserServiceImpl implements IUserService {
             isUserExists.get().setRememberMe(false);
         }userRepository.save(isUserExists.get());
     }
-    
+
+    @Override
+    public String setUserStatus(String token, UUID userId) {
+        UUID id = UUID.fromString(tokenUtil.decodeToken(token));
+        Optional<User> isUserExists = userRepository.findById(id);
+        Optional<User> byUserId = userRepository.findById(userId);
+        if (isUserExists.isPresent() && byUserId.isPresent()) {
+            if (!byUserId.get().isStatus()) {
+                byUserId.get().setStatus(true);
+                userRepository.save(isUserExists.get());
+                return ApplicationConfiguration.getMessageAccessor().getMessage("105");
+            }else {
+                byUserId.get().setStatus(false);
+                userRepository.save(isUserExists.get());
+                return ApplicationConfiguration.getMessageAccessor().getMessage("106");
+            }
+        } throw new UserException(UserException.ExceptionTypes.USER_NOT_FOUND);
+    }
+
     @Override
     public String forgotPassword(EmailDTO emailDTO) {
         Optional<User> userEmailId = userRepository.findByEmailId(emailDTO.getEmailId());

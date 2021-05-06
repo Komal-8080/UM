@@ -35,26 +35,32 @@ public class UsersListServiceImpl implements IUsersListService{
         Optional<User> isUserExists = userRepository.findById(id);
         if (isUserExists.isPresent()) {
             List<UsersListSummary> collect = userRepository.findAll().stream().map(users -> new UsersListSummary(users)).collect(Collectors.toList());
-            return collect.subList(0, Math.toIntExact(usersList));
+            if (collect.size() > 10) {
+                return collect.subList(0, Math.toIntExact(usersList));
+            }
+            else
+                return collect;
         }throw new UserException(UserException.ExceptionTypes.INVAlID_TOKEN);
     }
 
     @Override
-    public User editUserDetails(String token, RegistrationDTO registrationDTO) {
+    public User editUserDetails(String token, UUID userId, RegistrationDTO registrationDTO) {
         UUID id = UUID.fromString(tokenUtil.decodeToken(token));
         Optional<User> isUserExists = userRepository.findById(id);
-        if (isUserExists.isPresent()) {
-            isUserExists.get().updateUserDetails(registrationDTO);
+        Optional<User> byUserId = userRepository.findById(userId);
+        if (isUserExists.isPresent() && byUserId.isPresent()) {
+            byUserId.get().updateUserDetails(registrationDTO);
             return userRepository.save(isUserExists.get());
         }throw new UserException(UserException.ExceptionTypes.USER_NOT_FOUND);
     }
 
     @Override
-    public void removeUserDetails(String token) {
+    public void removeUserDetails(String token, UUID userId) {
         UUID id = UUID.fromString(tokenUtil.decodeToken(token));
         Optional<User> isUserExists = userRepository.findById(id);
-        if (isUserExists.isPresent()) {
-            userRepository.delete(isUserExists.get());
+        Optional<User> byUserId = userRepository.findById(userId);
+        if (isUserExists.isPresent() && byUserId.isPresent()) {
+            userRepository.delete(byUserId.get());
         }
     }
 

@@ -45,7 +45,7 @@ public class UserListController {
             response = Response.class
     )})
     @GetMapping("/getUsersList")
-    public ResponseEntity<ResponseDTO> getUsersList(@RequestHeader String token, @RequestParam(defaultValue = "1") long usersList) {
+    public ResponseEntity<ResponseDTO> getUsersList(@RequestHeader String token, @RequestParam(defaultValue = "10") long usersList) {
         List<UsersListSummary> response = iUsersListService.getUsersList(token,usersList);
         ResponseDTO responseDTO = new ResponseDTO("Get Call Successful", response);
         return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
@@ -63,9 +63,9 @@ public class UserListController {
             message = "Error Editing User Details",
             response = Response.class
     )})
-    @PutMapping("/editUserDetails")
-    public ResponseEntity<ResponseDTO> editUserDetails(@RequestHeader String token,@Valid @RequestBody RegistrationDTO registrationDTO) {
-        User editedUser = iUsersListService.editUserDetails(token,registrationDTO);
+    @PutMapping("/editUserDetails/{userId}")
+    public ResponseEntity<ResponseDTO> editUserDetails(@RequestHeader String token,@PathVariable UUID userId,@Valid @RequestBody RegistrationDTO registrationDTO) {
+        User editedUser = iUsersListService.editUserDetails(token,userId,registrationDTO);
         ResponseDTO responseDTO = new ResponseDTO("User Details Edited Successfully", editedUser);
         return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
     }
@@ -81,9 +81,9 @@ public class UserListController {
             message = "Error deleting Notes",
             response = Response.class
     )})
-    @DeleteMapping("/deleteUserDetails")
-    public ResponseEntity<ResponseDTO> removeUserDetails(@RequestHeader String token) {
-        iUsersListService.removeUserDetails(token);
+    @DeleteMapping("/deleteUserDetails/{userId}")
+    public ResponseEntity<ResponseDTO> removeUserDetails(@RequestHeader String token,@PathVariable UUID userId) {
+        iUsersListService.removeUserDetails(token,userId);
         ResponseDTO responseDTO = new ResponseDTO("Deleting User Details..","User Details Deleted Successfully" );
         return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
     }

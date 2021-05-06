@@ -32,7 +32,7 @@ public class UserSummary {
     private LocalDateTime loginDateTime;
     private boolean isVerify;
     private boolean rememberMe;
-    private LocalDateTime registrationDate = LocalDateTime.now();
+    private LocalDateTime registrationDate;
     private UserPermissions DashBoardPermissions;
     private UserPermissions SettingsPermissions;
     private UserPermissions UsersInformationPermissions;
@@ -40,6 +40,7 @@ public class UserSummary {
     private UserPermissions WebPage2Permissions;
     private UserPermissions WebPage3Permissions;
     private List<LocalDateTime> loginHistory;
+    private boolean status;
 
     public UserSummary(User users) {
         this.id=users.getId().toString();
@@ -68,5 +69,6 @@ public class UserSummary {
         this.WebPage2Permissions = users.getWebPage2Permissions();
         this.WebPage3Permissions = users.getWebPage3Permissions();
         this.loginHistory = users.getLoginHistory();
+        this.status = users.isStatus();
     }
 }
