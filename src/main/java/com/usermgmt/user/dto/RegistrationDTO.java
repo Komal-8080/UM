@@ -35,7 +35,7 @@ public class RegistrationDTO {
     @Past(message = "DateOfBirth should be past date")
     private LocalDate dateOfBirth;
 
-    @Pattern(regexp = "male|female|transGender", message = "Gender needs to be male or female or transGender")
+    @Pattern(regexp = "male|female|transGender", message = "Gender needs to be male or female")
     private String gender;
 
     @NotBlank(message = "Country cannot be empty")
