@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/dashBoard")
@@ -106,6 +107,23 @@ public class DashBoardController {
     @GetMapping("/getMaleFemalePercentage")
     public ResponseEntity<ResponseDTO> getMaleFemalePercentage(@RequestHeader String token,@RequestParam String gender) {
         Double response = iDashBoardService.getMaleFemalePercentage(token,gender);
+        ResponseDTO responseDTO = new ResponseDTO("Get Call Successful", response);
+        return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
+    }
+
+    @ApiOperation("This API is used to get Age.This API is used to get registered user age")
+    @ApiResponses({@ApiResponse(
+            code = 200,
+            message = "Get Call Successful",
+            response = Response.class
+    ), @ApiResponse(
+            code = 404,
+            message = "Error getting User Age",
+            response = Response.class
+    )})
+    @GetMapping("/getUserAgeList")
+    public ResponseEntity<ResponseDTO> getUserAgeList(@RequestHeader String token, @RequestParam int minimumAge,@RequestParam int maximumAge) {
+        int response = iDashBoardService.getUserAgeList(token,minimumAge,maximumAge);
         ResponseDTO responseDTO = new ResponseDTO("Get Call Successful", response);
         return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
     }

@@ -52,6 +52,7 @@ public class UserServiceImpl implements IUserService {
                 registration.setPassword(passwordEncoder.encode(registrationDTO.getPassword()));
                 registration.setConfirmPassword(passwordEncoder.encode(registrationDTO.getConfirmPassword()));
                 User saveUser = userRepository.save(registration);
+                registration.setAge(LocalDateTime.now().getYear()-registration.getDateOfBirth().getYear());
                 UUID id = registration.getId();
                 String emailId = registrationDTO.getEmailId();
                 String url = emailService.getUrl(id)+"/valid";

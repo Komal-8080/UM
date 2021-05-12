@@ -41,6 +41,7 @@ public class UserSummary {
     private UserPermissions WebPage3Permissions;
     private List<LocalDateTime> loginHistory;
     private boolean status;
+    private int age;
 
     public UserSummary(User users) {
         this.id=users.getId().toString();
@@ -70,5 +71,6 @@ public class UserSummary {
         this.WebPage3Permissions = users.getWebPage3Permissions();
         this.loginHistory = users.getLoginHistory();
         this.status = users.isStatus();
+        this.age = users.getAge();
     }
 }

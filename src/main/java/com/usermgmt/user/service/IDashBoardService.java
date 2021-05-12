@@ -5,6 +5,7 @@ import com.usermgmt.user.dto.UserSummary;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 public interface IDashBoardService {
 
@@ -17,4 +18,6 @@ public interface IDashBoardService {
     HashMap<String, Integer> getTopLocations(String token, String numberOfTopLocations);
 
     Double getMaleFemalePercentage(String token, String gender);
+
+    int getUserAgeList(String token, int minimumAge, int maximumAge);
 }

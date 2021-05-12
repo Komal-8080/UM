@@ -41,6 +41,7 @@ public @Data class User {
     private boolean isVerify;
     private LocalDateTime registrationDate = LocalDateTime.now();
     private boolean status;
+    private int age;
 
     @OneToOne(cascade = CascadeType.ALL)
     private UserPermissions DashBoardPermissions;

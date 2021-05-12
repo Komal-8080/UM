@@ -8,6 +8,8 @@ import com.usermgmt.user.repository.UserRepository;
 import com.usermgmt.utility.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -106,5 +108,22 @@ public class DashBoardImpl implements IDashBoardService{
             }
         } throw new UserException(UserException.ExceptionTypes.INVAlID_TOKEN);
     }
+
+    @Override
+    public int getUserAgeList(String token, int minimumAge, int maximumAge) {
+        UUID id = UUID.fromString(tokenUtil.decodeToken(token));
+        Optional<User> isUserExists = userRepository.findById(id);
+        if (isUserExists.isPresent()) {
+            List<UserSummary> collect = userRepository.findAll().stream().map(users -> new UserSummary(users)).collect(Collectors.toList());
+            List<Integer> byAge = collect.stream().map(users -> users.getAge()).collect(Collectors.toList());
+            List<Integer> newList = new ArrayList<>();
+            for ( int i : byAge) {
+                if (i >= minimumAge && i <= maximumAge) {
+                    newList.add(i);
+                }
+            } return (int) newList.stream().count();
+        } throw new UserException(UserException.ExceptionTypes.INVAlID_TOKEN);
+    }
+
 }
 
