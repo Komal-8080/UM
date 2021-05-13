@@ -20,4 +20,6 @@ public interface IDashBoardService {
     Double getMaleFemalePercentage(String token, String gender);
 
     int getUserAgeList(String token, int minimumAge, int maximumAge);
+
+    HashMap<String, Long> getAllTimeRegistrationHistory(String token);
 }

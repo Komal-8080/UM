@@ -127,4 +127,21 @@ public class DashBoardController {
         ResponseDTO responseDTO = new ResponseDTO("Get Call Successful", response);
         return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
     }
+
+    @ApiOperation("This API is used to get Registration History.This API is used to get all time registration history according to year")
+    @ApiResponses({@ApiResponse(
+            code = 200,
+            message = "Get Call Successful",
+            response = Response.class
+    ), @ApiResponse(
+            code = 404,
+            message = "Error getting Registration History",
+            response = Response.class
+    )})
+    @GetMapping("/getAllTimeRegistrationHistory")
+    public ResponseEntity<ResponseDTO> getAllTimeRegistrationHistory(@RequestHeader String token) {
+        HashMap<String,Long> response = iDashBoardService.getAllTimeRegistrationHistory(token);
+        ResponseDTO responseDTO = new ResponseDTO("Get Call Successful", response);
+        return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
+    }
 }

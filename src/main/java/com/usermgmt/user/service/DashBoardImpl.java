@@ -125,5 +125,24 @@ public class DashBoardImpl implements IDashBoardService{
         } throw new UserException(UserException.ExceptionTypes.INVAlID_TOKEN);
     }
 
+    @Override
+    public HashMap<String, Long> getAllTimeRegistrationHistory(String token) {
+        UUID id = UUID.fromString(tokenUtil.decodeToken(token));
+        Optional<User> isUserExists = userRepository.findById(id);
+        if (isUserExists.isPresent()) {
+            List<UserSummary> collect = userRepository.findAll().stream().map(users -> new UserSummary(users)).collect(Collectors.toList());
+            HashMap<String, Long> registrationHistory = new HashMap<>();
+            for (int i = 0; i <= collect.size() - 1; i++) {
+                long userCount = 1;
+                for (int j = 0; j < i; j++) {
+                    if (collect.get(i).getRegistrationDate().getYear() == collect.get(j).getRegistrationDate().getYear())
+                        userCount += 1;
+                }
+                registrationHistory.put(String.valueOf(collect.get(i).getRegistrationDate().getYear()), userCount);
+            }
+            return registrationHistory;
+        } throw new UserException(UserException.ExceptionTypes.INVAlID_TOKEN);
+    }
+
 }
 
